@@ -1,0 +1,61 @@
+
+.opiss{
+    margin-right: 15%;
+    margin-left: 15%;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    
+    
+    grid-row-gap: 20px;
+    justify-content: space-around;
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    padding: 20px;
+    line-height: 34px;
+    text-align: center;
+
+    
+
+}
+.opisdwa{
+    margin-right: 15%;
+    margin-left: 15%;
+
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-column-gap: 20px;
+    
+    
+    grid-row-gap: 20px;
+    justify-content: space-around;
+    font-family: Arial, Helvetica, sans-serif;
+    position: relative;
+    padding: 20px;
+    line-height: 34px;
+    text-align: center;
+
+    
+
+}
+.ofirmie>{
+
+    font-family: Arial;
+    text-align:center;
+    text-overflow: clip;
+    color: grey;
+}
+.coSerwis>{
+    position: relative;
+    text-align: center;
+    color: gray;
+}
+.SerwisRight>{
+    position: relative;
+    
+    text-align: left;
+}
+.SerwisCenter{
+    text-align: center;    
+}

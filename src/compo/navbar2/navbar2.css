@@ -1,0 +1,54 @@
+.navbar{
+    z-index: 50;
+    height: 75px;
+    display: flex;
+    overflow: hidden;
+    width: 100%;
+    background-color: rgb(50, 50, 50);
+    display: flex;
+    justify-content: center;
+    position: fixed;
+    top: 0px;
+    overflow: hidden;
+    border-bottom: solid 1px var(--primary-color);
+    opacity: 0.9;
+    z-index: 5;
+    
+}
+  
+.navContainer{
+  
+    z-index: 50;
+    width: 100%;
+    margin-right: 5px;
+    margin-left: 0px;
+    
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.logos{
+    width: 1% !important;
+    display: flex;
+    height: 100%;
+    
+}
+.logo{
+    width: 1;
+    height: 100%;
+  
+}
+.ainv2{
+    display: flex;
+    justify-content: space-between;
+    margin-left: 5%;
+    margin-right: 2%;
+
+}
+.nav-item {
+    display: flex;
+    justify-content: space-between;
+    margin-left: 1%;
+    margin-right: 10%;
+}

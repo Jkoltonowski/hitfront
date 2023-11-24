@@ -1,0 +1,94 @@
+.MachineContainer {
+    background-color: rgb(255, 255, 255);;
+    min-width: 50%;
+    max-width: 100%;
+    margin-top: 80px;
+    display: grid;
+    
+    grid-template-columns:repeat(3 , 350px);
+
+    grid-column-gap: 10px;
+    grid-row-gap: 50px;
+    justify-content: space-evenly;
+    
+}
+
+.maszrol{
+    background-color: #fdfafa;;
+    cursor: pointer;
+    position:relative;
+    border-bottom: 2px solid rgb(255, 0, 0);
+    
+    width: 100%;
+    border-radius: 10px;
+    margin-bottom: 1px
+}
+.MachineItem:hover>img{
+    transform: scale(1.3);
+    transition-duration: 0.5s;
+}
+.MachineItem:hover>div{
+    transform: scale(0.9);
+    transition-duration: 0.5s;
+}
+.MachineImageRol{
+    max-height: 200px;
+    min-height: 200px;
+    width: 70%;
+    margin-left: 30px;
+    justify-content: center;
+}
+
+.Opis{
+    
+    display: grid;
+    flex-wrap: wrap;
+    min-height: 300px;
+    max-height: 100%;
+    border: none;
+    border-radius: 5%;
+    background-color: rgb(80,80,80);
+    grid-template-columns: 170px 120px;
+    grid-row-gap: 0px;
+    justify-content: space-between;
+    font-weight: 100;
+    border-radius: 3px solid rgb(24, 175, 13);
+    
+    color:rgb(255, 255, 255);
+    font-size: 18px;
+
+
+
+}
+
+.Opis>h5{
+    text-align: start;
+}
+.Opis>p{
+    font-size: medium;
+    text-align: end;
+    
+    
+}
+.OpisMaszyn{
+    font-size: 20px;
+    color:rgba(0, 0, 0, 0.600);;
+    text-align: right;
+    position: absolute;
+    top: 0;
+    bottom: 130px;
+    left: 0;
+    right: 20px;
+    height: min-content;
+    margin: auto;
+
+    
+}
+.maszrol:hover>img{
+    transform: scale(1.4);
+    transition-duration: 0.5s;
+}
+.maszrol:hover>div{
+   opacity: 0.5;
+   transition-duration: 0.5s;
+}

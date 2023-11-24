@@ -1,0 +1,76 @@
+/* Style dla modalnego okna dialogowego */
+.modal-content {
+    max-width: 400px;
+    margin: 0 auto;
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+/* Style dla overlaya modalnego okna */
+.modal-backdrop.show {
+    opacity: 0.7;
+}
+
+/* Dodatkowe style dla modalu - opcjonalne */
+.modal-header {
+    background-color: #007bff;
+    color: #fff;
+    border-bottom: none; /* Usunięcie dolnej granicy nagłówka */
+}
+
+.modal-footer {
+    justify-content: space-between;
+    border-top: none; /* Usunięcie górnej granicy stopki */
+}
+
+/* Style dla przycisków w modalnym oknie */
+.modal-footer button {
+    padding: 10px 20px;
+}
+
+/* Style dla linku "Go Back" */
+.my-cart-list a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+}
+
+.my-cart-list a:hover {
+    text-decoration: underline;
+}
+
+/* Style dla ikony kosza */
+.my-cart-item .fas.fa-trash {
+    color: #ff3333;
+    cursor: pointer;
+}
+/* Style dla zdjęć produktów */
+.my-cart-item img {
+    max-width: 100px; /* Możesz dostosować szerokość zdjęć według własnych preferencji */
+    height: auto;
+}
+
+/* Styl dla kontenera listy produktów */
+.my-cart-list {
+    flex: 2; /* Zwiększ flex dla listy produktów, aby zajęła więcej miejsca na lewej stronie */
+    padding: 10px;
+}
+
+/* Styl dla przycisku "Proceed To Checkout" */
+.my-cart-summary .btn-block {
+    background-color: #007bff;
+    color: #fff;
+    font-size: 18px;
+    padding: 10px;
+    border: none;
+    cursor: pointer;
+    margin-left: auto; /* Przesunięcie przycisku na prawą stronę */
+    display: block; /* Wymuszenie pełnej szerokości */
+}

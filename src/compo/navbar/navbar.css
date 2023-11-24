@@ -1,0 +1,107 @@
+.navbar{
+  z-index: 50;
+  height: 75px;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  background-color: rgb(50, 50, 50);
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  top: 0px;
+  overflow: hidden;
+  border-bottom: solid 1px var(--primary-color);
+  opacity: 0.9;
+  z-index: 5;
+  
+}
+
+
+.logos{
+  display: flex;
+  height: 100%;
+  margin-left: 0%;
+  
+}
+.logo{
+  height: 100%;
+  margin-left: 10%;
+}
+
+.navItems{
+  width: 100%;
+  margin-right: 1%;
+  margin-left: 70%;
+  cursor: pointer;
+  background-color: rgb(50, 50, 50);
+  display: flex;
+  align-items: space-between;
+}
+.b1{
+  background-color:  rgb(50, 50, 50);
+  color: white;
+  font-size: 20px;
+  padding: 5px 15px;
+  border: 0;
+  cursor: pointer;
+
+}
+.b2{
+  background-color:  rgb(50, 50, 50);
+  color: white;
+  font-size: 20px;
+  padding: 5px 15px;
+  border: 0;
+  cursor: pointer;
+
+
+}
+.b3{
+  background-color:  rgb(50, 50, 50);
+  color: white;
+  font-size: 20px;
+  padding: 5px 15px;
+  border: 0;
+  cursor: pointer;
+
+
+}
+.b4{
+  background-color:  rgb(50, 50, 50);
+  color: white;
+  font-size: 20px;
+  padding: 5px 15px;
+  border: 0;
+  cursor: pointer;
+
+
+}
+.b5{
+  background-color:  rgb(50, 50, 50);
+  color: white;
+  font-size: 20px;
+  padding: 5px 15px;
+  border: 0;
+  cursor: pointer;
+
+}
+.b1:hover{
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  border-radius: 10px;
+}
+.b2:hover{
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  border-radius: 10px;
+}
+.b3:hover{
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  border-radius: 10px;
+}
+.b4:hover{
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  border-radius: 10px;
+}
+.b5:hover{
+  box-shadow: 0 0 5px rgba(0,0,0,0.5);
+  border-radius: 10px;
+}

@@ -1,0 +1,30 @@
+.stopa{
+    background-color: rgb(50, 50, 50);
+    width: 100%;
+    width: auto;
+
+}
+.kontaktMein {
+    color: rgb(180, 180, 180);
+    text-align: center;
+
+}
+a {
+    color:rgb(150, 150, 150);
+    font-size: 20px;
+}
+.kontakt {
+    color: rgb(150, 150, 150);
+    text-align: justify;
+    margin-left: 10px;
+
+    text-decoration: underline;
+
+}
+.wypelnienie{
+    color: rgb(150, 150, 150);
+    text-align: justify;
+    margin-left: 10px;
+    text-decoration: underline;
+
+}

@@ -1,0 +1,109 @@
+
+
+
+.logowanieNapis{
+  color: rgb(255, 255, 255);
+}
+.card{
+  background-color: rgb(50, 50, 50);
+
+  margin-top: 7%;
+  margin-left: 35%;
+  margin-right: 35%;
+  display: flex;
+  justify-content: center;
+  border-radius: 6%;
+}
+.navLogContainer{
+  z-index: 50;
+  height: 8%;
+  display: flex;
+  overflow: hidden;
+  width: 100%;
+  background-color: rgb(50, 50, 50);
+  display: flex;
+  justify-content: space-around;
+  position: fixed;
+  top: 0px;
+  overflow: hidden;
+  border-bottom: solid 1px var(--primary-color);
+  opacity: 0.9;
+  z-index: 5;
+  
+}
+
+.logoLogin{
+  display: flex;
+  height: 100%;
+  margin-right: 89%;
+  
+}
+.loginlogo{
+  height: 100%;
+  margin-left: 1.7%;
+}
+.container-login {
+  display: flex;
+  flex-direction: column; /* układ elementów w pionie */
+  justify-content: center; /* wyśrodkowanie pionowe */
+  align-items: left; /* wyśrodkowanie poziome */
+  height: 60%; /* wysokość na całą wysokość widoku */
+}
+
+
+
+.logowanieNapis {
+  font-size: 1.2rem;
+  color: #ffffff;
+  margin-bottom: 10px; /* dodatkowy margines dla tytułów */
+  justify-content: center;
+}
+
+.form-control {
+  width: 100%; /* szerokość pola równa szerokości kontenera */
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+.logujprzycisk {
+  width: 100%; /* szerokość przycisku równa szerokości kontenera */
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  justify-content: center;
+}
+
+.logujprzycisk:hover {
+  background-color: #0056b3;
+}
+
+.doRejestracji {
+  text-align: left;
+  margin-top: 15px; /* dodatkowy margines na górze */
+  color: white;
+}
+
+.registerLink {
+  color: #007bff;
+  text-decoration: none;
+}
+
+.registerLink:hover {
+  text-decoration: underline;
+}
+.logouj{
+  margin-left: 15%;
+  margin-right: 15%;
+  justify-content: center;
+}
+.logowanie, .logouj, .doRejestracji, .logowanieNapis{
+  text-align: center;
+  margin-bottom: 3%;
+  color: white;
+
+}
