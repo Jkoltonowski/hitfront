@@ -9,10 +9,35 @@ import {
 
 } from "../constants/productConstants";
 
-export const listProducts = () => async (dispatch) => {
+export const listProducts = (filters = {}) => async (dispatch) => {
   try {
     dispatch({ type: PRODUCT_LIST_REQUEST });
-    const { data } = await axios.get("/api/products/");
+
+    // Tworzenie URL z uwzględnieniem wszystkich filtrów
+    let url = '/api/products/filter/?';
+    const queryParameters = [];
+
+    if (filters.category) {
+      queryParameters.push(`category=${filters.category}`);
+    }
+    if (filters.name) {
+      queryParameters.push(`searchTerm=${filters.name}`);
+    }
+    if (filters.price) {
+      if (filters.price.min) {
+        queryParameters.push(`minPrice=${filters.price.min}`);
+      }
+      if (filters.price.max) {
+        queryParameters.push(`maxPrice=${filters.price.max}`);
+      }
+    }
+
+    // Dołączanie parametrów zapytania do URL
+    if (queryParameters.length > 0) {
+      url += queryParameters.join('&');
+    }
+
+    const { data } = await axios.get(url);
     dispatch({
       type: PRODUCT_LIST_SUCCESS,
       payload: data,
@@ -27,6 +52,7 @@ export const listProducts = () => async (dispatch) => {
     });
   }
 };
+
 
 
 export const listProductDetails = (id) => async (dispatch) => {

@@ -42,11 +42,11 @@ export const AuthProvider = ({ children }) => {
             localStorage.setItem("authTokens", JSON.stringify(data));
             navigate("/sklep");
             swal.fire({
-                title: "Login Successful",
+                title: "Zalogowano",
                 icon: "success",
                 toast: true,
                 timer: 6000,
-                position: 'top-right',
+                position: 'bottom-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
             });
@@ -56,7 +56,7 @@ export const AuthProvider = ({ children }) => {
                 icon: "error",
                 toast: true,
                 timer: 6000,
-                position: 'top-right',
+                position: 'bottom-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
             });
@@ -76,11 +76,11 @@ export const AuthProvider = ({ children }) => {
             if (response.status === 201) {
                 navigate("/login");
                 swal.fire({
-                    title: "Registration Successful, Login Now",
+                    title: "Rejestracja zakończona sukcesem",
                     icon: "success",
                     toast: true,
                     timer: 6000,
-                    position: 'top-right',
+                    position: 'bottom-right',
                     timerProgressBar: true,
                     showConfirmButton: false,
                 });
@@ -95,19 +95,19 @@ export const AuthProvider = ({ children }) => {
                     icon: "error",
                     toast: true,
                     timer: 6000,
-                    position: 'top-right',
+                    position: 'bottom-right',
                     timerProgressBar: true,
                     showConfirmButton: false,
                 });
             }
         } catch (error) {
             swal.fire({
-                title: "An Error Occurred",
+                title: "Błąd",
                 text: error.toString(),
                 icon: "error",
                 toast: true,
                 timer: 6000,
-                position: 'top-right',
+                position: 'bottom-right',
                 timerProgressBar: true,
                 showConfirmButton: false,
             });
@@ -119,13 +119,13 @@ export const AuthProvider = ({ children }) => {
         setAuthTokens(null);
         setUser(null);
         localStorage.removeItem("authTokens");
-        navigate("/login");
+        navigate("/");
         swal.fire({
-            title: "You have been logged out...",
+            title: "Wylogowano",
             icon: "success",
             toast: true,
             timer: 6000,
-            position: 'top-right',
+            position: 'bottom-right',
             timerProgressBar: true,
             showConfirmButton: false,
         });

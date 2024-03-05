@@ -26,15 +26,14 @@ function Navbar2() {
           {!token ? (
             <>
               <Link to='/'><button className='b9'>Strona Główna</button></Link>
-              <Link to='/cart'><button className='b9'>Koszyk</button></Link>
+              <Link to='/sklep'><button className='b9'>Sklep</button></Link>
               <Link to='/login'><button className='b9'>Logowanie</button></Link>
               <Link to='/rejestracja'><button className='b9'>Rejestracja</button></Link>
-
             </>
           ) : (
             <>
               <Link to='/'><button className='b9'>Strona Główna</button></Link>
-              <Link to='/cart'><button className='b9'>Koszyk</button></Link>
+              <Link to='/sklep'><button className='b9'>Sklep</button></Link>
               <Link to={`/profile/${decoded.user_id}`}><button className='b9'>Profil</button></Link> {/* Dodany przycisk Profil */}
               <button onClick={logoutUser} className='b9'>Wyloguj</button>
             </>

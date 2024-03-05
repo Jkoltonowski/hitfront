@@ -3,6 +3,7 @@
 
 .logowanieNapis{
   color: rgb(255, 255, 255);
+  
 }
 .card{
   background-color: rgb(50, 50, 50);
@@ -16,7 +17,7 @@
 }
 .navLogContainer{
   z-index: 50;
-  height: 8%;
+  height: 75px;
   display: flex;
   overflow: hidden;
   width: 100%;
@@ -45,9 +46,7 @@
 .container-login {
   display: flex;
   flex-direction: column; /* układ elementów w pionie */
-  justify-content: center; /* wyśrodkowanie pionowe */
-  align-items: left; /* wyśrodkowanie poziome */
-  height: 60%; /* wysokość na całą wysokość widoku */
+  height: auto; /* wysokość na całą wysokość widoku */
 }
 
 
@@ -56,7 +55,6 @@
   font-size: 1.2rem;
   color: #ffffff;
   margin-bottom: 10px; /* dodatkowy margines dla tytułów */
-  justify-content: center;
 }
 
 .form-control {
@@ -65,21 +63,21 @@
   margin-bottom: 10px;
   border: 1px solid #ccc;
   border-radius: 5px;
+
 }
 
 .logujprzycisk {
   width: 100%; /* szerokość przycisku równa szerokości kontenera */
   padding: 10px;
-  background-color: #007bff;
+  background-color: rgb(60, 60, 60);
   color: white;
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  justify-content: center;
 }
 
 .logujprzycisk:hover {
-  background-color: #0056b3;
+  background-color: rgba(80, 80, 80, 0.85);
 }
 
 .doRejestracji {
@@ -89,17 +87,22 @@
 }
 
 .registerLink {
-  color: #007bff;
+  color: white;
+  border-radius: 10%;
+  background-color: rgb(60, 60, 60);
   text-decoration: none;
 }
 
 .registerLink:hover {
   text-decoration: underline;
+  background-color: rgba(80, 80, 80, 0.85);
+
 }
 .logouj{
-  margin-left: 15%;
-  margin-right: 15%;
+  margin-left: 25%;
+  margin-right: 10%;
   justify-content: center;
+  
 }
 .logowanie, .logouj, .doRejestracji, .logowanieNapis{
   text-align: center;

@@ -8,6 +8,10 @@ import Button from 'react-bootstrap/Button';
 import React, { useState, useEffect, useContext } from 'react';
 import axios from 'axios';
 import { UserContext } from '../../Strony/Authentication'
+import { FaFacebook } from "react-icons/fa";
+import AuthContext from '../../context/AuthContext';
+import * as jwt_decode from 'jwt-decode';
+
 const client = axios.create({
     baseURL: "http://127.0.0.1:8000"
 });
@@ -19,79 +23,80 @@ const Navbar = () => {
 	const navigateToMaszyny = () => {
 		navigate('maszyny');
 	};	
-	useEffect(() => {
-		client.get("/api/user")
-		.then(function(res) {
-		  setCurrentUser(true);
-		})
-		.catch(function(error) {
-		  setCurrentUser(false);
-		});
-	  }, []);
-
+	const { user, logoutUser } = useContext(AuthContext);
+	const token = localStorage.getItem("authTokens");
+  
+	let decoded;
+	if (token) {
+	  decoded = jwt_decode(token);
+	}
 	
 	
 	return(
-		<div className='navbar'>
-			<Link
-				to='/'
-				reloadDocument
-				className='logos'
-			>
-				<div>
-					<img
-						src={logo}
-						alt='logo'
-						className='logo'
-					/>
-				</div>
-			</Link>
-			<div className='navItems'>
-				<nav>
-					<ul>
-						<button
-							className='b1'
-							onClick={() =>
-								scroller.scrollTo('maszyny', {
-									smooth: true,
-									offset: -50,
-									duration: 500,
-								})
-							}
-						>
-							Maszyny
-						</button>
+		<div className='allnavbar1'>
+			{!token ? (
 
-						<button
-							className='b2'
-							onClick={() =>
-								scroller.scrollTo('firma', {
-									smooth: true,
-									offset: -50,
-									duration: 500,
-								})
-							}
-						>
-							O nas
-						</button>
+			<div className='navbar'>
+				<Link
+					to='/'
+					reloadDocument
+					className='logos'
+				>
+					<div>
+						<img
+							src={logo}
+							alt='logo'
+							className='logo'
+						/>
+					</div>
+				</Link>
 
-						<button
-							className='b3'
-							onClick={() =>
-								scroller.scrollTo('oNas', {
-									smooth: true,
-									offset: -50,
-									duration: 500,
-								})
-							}
-						>
-							Serwis
-						</button>
-						<Link to='/'>
+				<div className='navItems'>
+					<nav>
+						<ul>
+							<button
+								className='b1'
+								onClick={() =>
+									scroller.scrollTo('maszyny', {
+										smooth: true,
+										offset: -50,
+										duration: 500,
+									})
+								}
+							>
+								Maszyny
+							</button>
+
+							<button
+								className='b2'
+								onClick={() =>
+									scroller.scrollTo('firma', {
+										smooth: true,
+										offset: -50,
+										duration: 500,
+									})
+								}
+							>
+								O nas
+							</button>
+
+							<button
+								className='b3'
+								onClick={() =>
+									scroller.scrollTo('oNas', {
+										smooth: true,
+										offset: -50,
+										duration: 500,
+									})
+								}
+							>
+								Serwis
+							</button>
+							
 							<button
 								className='b4'
 								onClick={() =>
-									scroll.scrollTo('kontakt', {
+									scroller.scrollTo('kontakts', {
 										smooth: true,
 										offset: -50,
 										duration: 500,
@@ -100,17 +105,106 @@ const Navbar = () => {
 							>
 								Kontakt
 							</button>
-						</Link>
+							
 
-						<a href='/sklep'>
-							<button className='b5'>Sklep</button>{' '}
-						</a>
-					</ul>
-				</nav>
-				<oNas />
+							<a href='/sklep'>
+								<button className='b5'>Sklep</button>{' '}
+							</a>
+						</ul>
+					</nav>
+					<oNas />
+
+	
+				</div>
 			</div>
-	</div>
+			) : (
+				<div className='navbar'>
+				<Link
+					to='/'
+					reloadDocument
+					className='logos'
+				>
+					<div>
+						<img
+							src={logo}
+							alt='logo'
+							className='logo'
+						/>
+					</div>
+				</Link>
+
+				<div className='navItems'>
+					<nav>
+						<ul>
+							<button
+								className='b1'
+								onClick={() =>
+									scroller.scrollTo('maszyny', {
+										smooth: true,
+										offset: -50,
+										duration: 500,
+									})
+								}
+							>
+								Maszyny
+							</button>
+
+							<button
+								className='b2'
+								onClick={() =>
+									scroller.scrollTo('firma', {
+										smooth: true,
+										offset: -50,
+										duration: 500,
+									})
+								}
+							>
+								O nas
+							</button>
+
+							<button
+								className='b3'
+								onClick={() =>
+									scroller.scrollTo('oNas', {
+										smooth: true,
+										offset: -50,
+										duration: 500,
+									})
+								}
+							>
+								Serwis
+							</button>
+							
+							<button
+								className='b4'
+								onClick={() =>
+									scroller.scrollTo('kontakts', {
+										smooth: true,
+										offset: -50,
+										duration: 500,
+									})
+								}
+							>
+								Kontakt
+							</button>
+							
+
+							<a href='/sklep'>
+								<button className='b5'>Sklep</button>{' '}
+							</a>
+						</ul>
+					</nav>
+					<oNas />
+					<Link to={`/profile/${decoded.user_id}`}><button className='b9'>Profil</button></Link> {/* Dodany przycisk Profil */}
+              		<button onClick={logoutUser} className='b9'>Wyloguj</button>
+
+				</div>
+			</div>
+
+			)}
+		</div>
 	);
+	
 }
 
 export default Navbar;

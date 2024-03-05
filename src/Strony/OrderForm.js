@@ -1,43 +1,89 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext,useEffect } from 'react';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import AuthContext from '../context/AuthContext';
+import swal from 'sweetalert2';
+import { useParams,useLocation  } from 'react-router-dom';
+import './cssy/orderForm.css';
+import { addToCart, removeFromCart, clearCart} from '../actions/cartActions';
+import { useDispatch } from 'react-redux';
+
 
 const OrderForm = () => {
+  const location = useLocation();
   const { user } = useContext(AuthContext);
   const { cartItems } = useSelector((state) => state.cart);
+  const { authTokens } = useContext(AuthContext);
+  const [paymentMethod, setPaymentMethod] = useState('');
+
+  const { userId } = useParams();
+    const dispatch = useDispatch();
+
   const [orderDetails, setOrderDetails] = useState({
     address: '',
     city: '',
     postalCode: '',
     country: '',
-    paymentMethod: '',
-    shippingPrice: 0,
-    taxPrice: 0,
   });
+  const queryParams = new URLSearchParams(location.search);
+  const deliveryCost = parseFloat(queryParams.get('deliveryCost') || 0);
+  useEffect(() => {
+    const method = queryParams.get('paymentMethod');
+    if (method) {
+        setPaymentMethod(method);
+    }
+}, [queryParams]);
+  useEffect(() => {
 
+    const fetchUserData = async () => {
+      if (!authTokens) {
+        // Przekieruj do strony logowania lub obsłuż brak tokena
+        return;
+      }
+      try {
+        const result = await axios.get(`/api/user/profile/${userId}/`, {
+          headers: {
+            Authorization: `Bearer ${authTokens.access}`,
+          },
+        });
+        setOrderDetails({
+          address: result.data.address || '',
+          city: result.data.city || '',
+          postalCode: result.data.postalCode || '',
+          country: result.data.country || '',
+        });
+      } catch (error) {
+        console.error('Error fetching user data', error);
+      }
+    };
+
+    fetchUserData();
+  }, [userId, authTokens, location.search]);
   const handleInputChange = (e) => {
     setOrderDetails({ ...orderDetails, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
+  
+    // Sprawdź, czy wszystkie pola zostały wypełnione
+    if (!orderDetails.address || !orderDetails.city || !orderDetails.postalCode || !orderDetails.country) {
+      swal.fire('Brakujące informacje', 'Proszę wprowadzić dane.', 'warning');
+      return;
+    }
+  
+    const total_price = cartItems.reduce((acc, item) => acc + item.qty * item.price, 0);
     const orderItems = cartItems.map(item => ({
       product_name: item.name,
       quantity: item.qty,
       price: item.price,
-      image: item.image,
     }));
-
-    const total_price = cartItems.reduce((acc, item) => acc + item.qty * item.price, 0) + Number(orderDetails.taxPrice) + Number(orderDetails.shippingPrice);
-
+  
     const orderData = {
-      user: user.id,
-      payment_method: orderDetails.paymentMethod,
-      tax_price: orderDetails.taxPrice,
-      shipping_price: orderDetails.shippingPrice,
-      total_price,
+      user: user?.id,
+      tax_price: 0,
+      shipping_price: deliveryCost, // Użyj pobranej wartości
+      total_price: total_price, // Dodaj koszt dostawy do całkowitej ceny
       address: orderDetails.address,
       city: orderDetails.city,
       postal_code: orderDetails.postalCode,
@@ -45,31 +91,101 @@ const OrderForm = () => {
       order_items: orderItems,
     };
 
+  
     try {
-      const response = await axios.post('http://localhost:8000/api/order/', orderData);
-      console.log(response.data);
-      alert('Zamówienie zostało złożone.');
+
+      // Dodaj token JWT do nagłówków żądania
+      const config = {
+        headers: {
+           Authorization: `Bearer ${authTokens.access}`,
+        },
+      };
+
+      if (paymentMethod === 'payNow') {
+        const { data } = await axios.post('/api/order/', orderData, config);
+
+        if (data && data.id) {
+          dispatch(clearCart()); 
+          const stripe = window.Stripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+          await stripe.redirectToCheckout({
+            sessionId: data.id,
+          });
+        } else if (paymentMethod === 'payOnDelivery') {
+          const { data } = await axios.post('/api/order/', orderData, config);
+        }
+
+      } else {
+        // Handle error here, for example, data doesn't contain a session ID
+        swal.fire('Order Error', 'Failed to initiate Stripe checkout.', 'error');
+      }
+
     } catch (error) {
-      console.error('Błąd przy składaniu zamówienia:', error);
-      alert('Nie udało się złożyć zamówienia.');
+      // Handle error here, for example, show error message to user
+      swal.fire('Order Error', error.response?.data?.message || 'Failed to place the order.', 'error');
     }
   };
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setOrderDetails(prevState => ({ ...prevState, [name]: value }));
+  };
+  const handlebutton = (e) => {
+    cartItems.forEach(item => {
+      dispatch(removeFromCart(item.product));
+    });
+  }
+  const removeFromCartHandler = (id) => {
+    dispatch(removeFromCart(id));
+  };
 
-  return (
-    <div>
-      <h1>Formularz Zamówienia</h1>
-      <form onSubmit={handleSubmit}>
-        <input type="text" name="address" value={orderDetails.address} onChange={handleInputChange} placeholder="Adres" required />
-        <input type="text" name="city" value={orderDetails.city} onChange={handleInputChange} placeholder="Miasto" required />
-        <input type="text" name="postalCode" value={orderDetails.postalCode} onChange={handleInputChange} placeholder="Kod pocztowy" required />
-        <input type="text" name="country" value={orderDetails.country} onChange={handleInputChange} placeholder="Kraj" required />
-        <input type="text" name="paymentMethod" value={orderDetails.paymentMethod} onChange={handleInputChange} placeholder="Metoda płatności" required />
-        <input type="number" name="taxPrice" value={orderDetails.taxPrice} onChange={handleInputChange} placeholder="Podatek" min="0" step="0.01" required />
-        <input type="number" name="shippingPrice" value={orderDetails.shippingPrice} onChange={handleInputChange} placeholder="Cena dostawy" min="0" step="0.01" required />
-        <button type="submit">Złóż Zamówienie</button>
-      </form>
-    </div>
+    return (
+      <div className="order-form-container">
+          <h1 className="order-form-header">Formularz Zamówienia</h1>
+          <form onSubmit={handleSubmit} className="order-form">
+              <input
+                  type="text"
+                  name="address"
+                  className="order-form-input"
+                  value={orderDetails.address}
+                  onChange={handleChange}
+                  placeholder="Adres"
+                  required
+              />
+              <input
+                  type="text"
+                  name="city"
+                  className="order-form-input"
+                  value={orderDetails.city}
+                  onChange={handleChange}
+                  placeholder="Miasto"
+                  required
+              />
+              <input
+                  type="text"
+                  name="postalCode"
+                  className="order-form-input"
+                  value={orderDetails.postalCode}
+                  onChange={handleChange}
+                  placeholder="Kod pocztowy"
+                  required
+              />
+              <input
+                  type="text"
+                  name="country"
+                  className="order-form-input"
+                  value={orderDetails.country}
+                  onChange={handleChange}
+                  placeholder="Kraj"
+                  required
+              />
+              <div className='metplatnosc'>
+                <h3>Metoda płatności : {paymentMethod === 'payNow' ? 'Zapłać teraz' : 'Przy odbiorze'}</h3>
+              </div>
+              <button type="submit"  className="order-form-submit">Złóż Zamówienie</button>
+
+          </form>
+      </div>
   );
+  
 };
 
 export default OrderForm;

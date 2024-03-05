@@ -1,76 +1,66 @@
-import React, { useEffect, useState, useContext } from 'react';
+import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import swal from 'sweetalert2';
 import axios from 'axios';
+import { CardElement, useStripe, useElements } from '@stripe/react-stripe-js';
 import AuthContext from '../context/AuthContext';
+import './cssy/checkout.css';
 
 const Checkout = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-  const authContext = useContext(AuthContext);
-
-  const cart = useSelector((state) => state.cart);
-  const { cartItems } = cart;
-  const userLogin = useSelector((state) => state.userLogin);
-  const { userInfo } = userLogin;
+  const { user } = useContext(AuthContext);
+  const { cartItems } = useSelector((state) => state.cart);
+  const stripe = useStripe();
+  const elements = useElements();
 
   const [address, setAddress] = useState('');
   const [city, setCity] = useState('');
   const [postalCode, setPostalCode] = useState('');
   const [country, setCountry] = useState('');
-  const [showOrderSummary, setShowOrderSummary] = useState(false);
-  
-  // Zdefiniuj zmienną orderData przed jej użyciem
-  const [orderData, setOrderData] = useState(null);
 
-  useEffect(() => {
-    if (!authContext.user) {
-      navigate('/login');
-    } else {
-      setAddress(cart.shippingAddress?.address || '');
-      setCity(cart.shippingAddress?.city || '');
-      setPostalCode(cart.shippingAddress?.postalCode || '');
-      setCountry(cart.shippingAddress?.country || '');
-    }
-  }, [authContext.user, navigate, cart.shippingAddress]);
+  const submitHandler = async (event) => {
+    event.preventDefault();
 
-  const submitHandler = async (e) => {
-    e.preventDefault();
-    if (!address || !city || !postalCode || !country) {
-      swal.fire('Error', 'Please fill in all fields to proceed.', 'error');
+    if (!stripe || !elements) {
+      swal.fire('Error', 'Stripe has not loaded yet. Please try again later.', 'error');
       return;
     }
 
-    const newOrderData = {
-      paymentMethod: 'PayPal',
-      shippingAddress: {
-        address,
-        city,
-        postalCode,
-        country,
-      },
-      orderItems: cartItems.map((item) => ({
-        product: item.product,
-        qty: item.qty,
+    const cardElement = elements.getElement(CardElement);
+    const { error, paymentMethod } = await stripe.createPaymentMethod({
+      type: 'card',
+      card: cardElement,
+    });
+
+    if (error) {
+      console.log('[error]', error);
+      swal.fire('Error', error.message, 'error');
+      return;
+    }
+
+    const orderData = {
+      user: user?.id,
+      address,
+      city,
+      postalCode,
+      country,
+      paymentMethodId: paymentMethod.id,
+      orderItems: cartItems.map(item => ({
+        product_name: item.name,
+        quantity: item.qty,
+        price: item.price,
       })),
-      user: authContext.user?.id,
     };
 
     try {
-      const { data } = await axios.post('api/checkout/', newOrderData);
-
-      dispatch({ type: 'ORDER_CREATE_SUCCESS', payload: data });
-      dispatch({ type: 'CART_CLEAR_ITEMS' });
-
-      // Zaktualizuj zmienną orderData po utworzeniu zamówienia
-      setOrderData(data);
-      setShowOrderSummary(true);
-    } catch (error) {
-      dispatch({
-        type: 'ORDER_CREATE_FAIL',
-        payload: error.response && error.response.data.message ? error.response.data.message : error.message,
-      });
+      const response = await axios.post('/api/order/', orderData);
+      if (response.status === 201) {
+        swal.fire('Success', 'Your order has been placed!', 'success');
+        navigate('/order-success');
+      }
+    } catch (err) {
+      swal.fire('Error', 'There was an error processing your order.', 'error');
     }
   };
 
@@ -78,7 +68,7 @@ const Checkout = () => {
     <div className="checkout-container">
       <h1>Checkout</h1>
         : (
-        <form onSubmit={submitHandler}>
+        <form className="checkout-form" onSubmit={submitHandler}>
           <div className="form-group">
             <label htmlFor="address">Address:</label>
             <input
@@ -119,8 +109,9 @@ const Checkout = () => {
               onChange={(e) => setCountry(e.target.value)}
             />
           </div>
-          <button type="submit" className="btn btn-primary">
-            Place Order
+          <CardElement />
+          <button className="checkout-button" type="submit" disabled={!stripe}>
+            Pay
           </button>
         </form>
       )

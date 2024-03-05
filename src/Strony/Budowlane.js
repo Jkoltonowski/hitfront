@@ -9,7 +9,6 @@ import MT933Easy from "../compo/zdjMaszyn/MT/MT933Easy/main_visual_construction_
 import MHT10135ST5 from "../compo/zdjMaszyn/MT/MHT10135ST5/main_visual_construction_telehandler_mht_10135_manitou.png"
 import MHT10160 from "../compo/zdjMaszyn/MT/MHT10160/MHT10160.png"
 import React from 'react';
-
 const Machine = () =>{
   return (
     <div>

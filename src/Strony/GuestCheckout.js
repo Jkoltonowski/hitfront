@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import swal from "sweetalert2";
+import { useSelector } from 'react-redux';
+import { loadStripe } from '@stripe/stripe-js';
 
 const GuestCheckout = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +12,19 @@ const GuestCheckout = () => {
   const [city, setCity] = useState("");
   const [postalCode, setPostalCode] = useState("");
   const [country, setCountry] = useState("");
+  const cart = useSelector((state) => state.cart);
+  const { cartItems } = cart;
+
+  const handleStripePayment = async (sessionId) => {
+    const stripe = await loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
+    const { error } = await stripe.redirectToCheckout({
+      sessionId,
+    });
+    if (error) {
+      console.error('Error redirecting to Stripe checkout:', error);
+      // Dodaj obsługę błędu, np. wyświetlenie komunikatu użytkownikowi
+    }
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -22,9 +37,15 @@ const GuestCheckout = () => {
       city,
       postal_code: postalCode, // Użyj snake_case jak w Django
       country,
+      order_items: cartItems.map(item => ({
+        product_name: item.name,
+        quantity: item.qty,
+        price: item.price,
+        image: item.image,
+      })),
     };
 
-    fetch('http://127.0.0.1:8000/api/guest-order/', {
+    fetch('http://localhost:8000/api/order/', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -42,16 +63,11 @@ const GuestCheckout = () => {
       }
     })
     .then((data) => {
-      swal.fire({
-        title: "Order Placed Successfully",
-        icon: "success",
-        text: "Thank you for your order!",
-        showCancelButton: false,
-        showConfirmButton: false,
-        timer: 3000,
-      });
-      // Tutaj możesz wykonać dalsze akcje, jak resetowanie formularza
-      // lub przekierowanie do innej strony
+
+      
+
+      // Po złożeniu zamówienia, przekieruj do płatności Stripe
+      handleStripePayment(data.id);
     })
     .catch((error) => {
       console.error('Error:', error);
@@ -69,7 +85,7 @@ const GuestCheckout = () => {
       <h2>Guest Checkout</h2>
       <form onSubmit={handleSubmit}>
         <div className="form-group">
-          <label>Email Address:</label>
+          <label>Email:</label>
           <input
             type="email"
             className="form-control"
@@ -79,7 +95,7 @@ const GuestCheckout = () => {
           />
         </div>
         <div className="form-group">
-          <label>Name:</label>
+          <label>Imię:</label>
           <input
             type="text"
             className="form-control"
@@ -89,7 +105,7 @@ const GuestCheckout = () => {
           />
         </div>
         <div className="form-group">
-          <label>Last Name:</label>
+          <label>Nazwisko:</label>
           <input
             type="text"
             className="form-control"
@@ -99,7 +115,7 @@ const GuestCheckout = () => {
           />
         </div>
         <div className="form-group">
-          <label>Address:</label>
+          <label>Ulica:</label>
           <input
             type="text"
             className="form-control"
@@ -109,7 +125,7 @@ const GuestCheckout = () => {
           />
         </div>
         <div className="form-group">
-          <label>City:</label>
+          <label>Miasto:</label>
           <input
             type="text"
             className="form-control"
@@ -119,7 +135,7 @@ const GuestCheckout = () => {
           />
         </div>
         <div className="form-group">
-          <label>Postal Code:</label>
+          <label>Kod Pocztowy:</label>
           <input
             type="text"
             className="form-control"
@@ -129,7 +145,7 @@ const GuestCheckout = () => {
           />
         </div>
         <div className="form-group">
-          <label>Country:</label>
+          <label>Kraj:</label>
           <input
             type="text"
             className="form-control"
@@ -139,10 +155,10 @@ const GuestCheckout = () => {
           />
         </div>
         <button type="submit" className="btn btn-primary">
-          Place Order
+          Zamów
         </button>
       </form>
-      <Link to="/cart">Back to Cart</Link>
+      <Link to="/cart">Powrót</Link>
     </div>
   );
 };

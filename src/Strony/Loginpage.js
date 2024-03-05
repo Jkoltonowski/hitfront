@@ -4,6 +4,8 @@ import AuthContext from "../context/AuthContext";
 import "./cssy/auth.css";
 import Navbar2 from "../compo/navbar2/Navbar2";
 import logo from "../compo/img/logo.png";
+import './cssy/loginpage.css';
+
 function Loginpage() {
   const { loginUser } = useContext(AuthContext);
   const handleSubmit = (e) => {
@@ -39,10 +41,8 @@ function Loginpage() {
             id="form2Example17"
             className="form-control form-control-lg"
             name="email"
+            placeholder="Email adres"
           />
-          <label className="logowanieNapis" htmlFor="form2Example17">
-            Email addres
-          </label>
         </div>
         <div className="logowanieNapis">
           <input
@@ -50,10 +50,9 @@ function Loginpage() {
             id="form2Example27"
             className="form-control form-control-lg"
             name="password"
+            placeholder="Hasło"
           />
-          <label className="logowanieNapis" htmlFor="form2Example27">
-            Hasło
-          </label>
+
         </div>
         <div className="logouj">
           <button className="logujprzycisk" type="submit">
@@ -61,7 +60,6 @@ function Loginpage() {
           </button>
         </div>
         <a className="logowanieNapis" href="#!">
-          Przypomnienie hasła(zrobić)
         </a>
         <div className="doRejestracji">
           <h4>Nie posiadasz konta?</h4>

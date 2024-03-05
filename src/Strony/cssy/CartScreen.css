@@ -1,76 +1,292 @@
-/* Style dla modalnego okna dialogowego */
-.modal-content {
-    max-width: 400px;
-    margin: 0 auto;
+/* CartScreen.css */
+
+.logos2 {
+    display: flex;
+    height: 100%;
+}
+
+.logo2 {
+    height: 100%;
+    margin-left: 10%;
+}
+
+.navContainer3 {
+    z-index: 5;
+    height: 75px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    background-color: rgb(50, 50, 50);
     position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #fff;
+    top: 0;
+    border-bottom: solid 1px var(--primary-color);
+    opacity: 0.9;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.ainv2 {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    flex-grow: 1;
+}
+
+.b9 {
+    background-color: rgb(50, 50, 50);
+    color: white;
+    font-size: 20px;
+    padding: 5px 15px;
+    border: 0;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.b9:hover {
+    background-color: rgba(80, 80, 80, 0.9);
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+.my-cart-container {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(50, 50, 50);
     padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    min-height: 80vh;
+    align-items: flex-start; /* Aby elementy były wyrównane do góry */
+    margin-top: 120px; /* Dostosowanie marginesu górnego */
+    margin-left: 120px;
+    margin-right: 120px;
+    border-radius: 10px;
+
+    border-left: 5px solid rgb(255, 0, 0);
+    border-right: 5px solid rgb(255, 0, 0);
+
+}
+.my-cart-list {
+    flex: 1;
+    margin-right: 20px;
+    margin-top: 50px;
 }
 
-/* Style dla overlaya modalnego okna */
-.modal-backdrop.show {
-    opacity: 0.7;
+.my-cart-title {
+    color: white;
+    font-size: 28px;
+    margin-bottom: 30px;
 }
 
-/* Dodatkowe style dla modalu - opcjonalne */
-.modal-header {
-    background-color: #007bff;
-    color: #fff;
-    border-bottom: none; /* Usunięcie dolnej granicy nagłówka */
+.my-cart-items {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    grid-gap: 20px;
+}
+
+.my-cart-item {
+    background-color: #ffffff;
+    cursor: pointer;
+    position: relative;
+    border: 1px solid rgb(80, 80, 80);
+    border-bottom: 2px solid rgb(255, 0, 0);
+    width: 80%;
+    max-width: 300px;
+    object-fit: cover;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    transition: transform 0.5s;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+}
+
+.my-cart-item:hover {
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+.my-cart-item-image img {
+    width: 100%;
+    height: 250px;
+    object-fit: contain;
+}
+
+.my-cart-item-details {
+    padding: 10px;
+}
+
+.my-cart-item-details a {
+    text-decoration: none;
+    font-size: 18px;
+    color: black;
+}
+
+.my-cart-summary {
+    flex: 0.3;
+    background-color: #ffffff;
+    border: 1px solid rgb(80, 80, 80);
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.my-cart-summary-inner {
+    text-align: center;
+}
+
+.my-cart-summary h2 {
+    font-size: 24px;
+}
+
+.my-cart-summary-total {
+    font-size: 36px;
+    margin: 20px 0;
+    color: rgb(0, 0, 0);
+}
+
+button.btn-block {
+    background-color: rgb(60, 60, 60);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    width: 100%;
+    border-radius: 10px;
+}
+
+button.btn-block:hover {
+    background-color: rgba(80, 80, 80, 0.85);
+}
+
+/* Modal Styles */
+.modal {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.modal-dialog {
+    margin: 200px auto;
+    width: 40%;
+    padding: 20px;
+    background-color: #ffffff;
+    border: 1px solid #888;
+    border-radius: 10px;
+    box-shadow: 0 15px 25px rgba(0, 0, 0, 0.3);
+    justify-content: center;
+
+}
+
+.modal-title {
+    display: flex;
+    font-size: 24px;
+    margin-bottom: 10px;
+    justify-content: center;
+
+}
+
+.modal-body {
+    display: flex;
+    font-size: 18px;
+    margin-bottom: 20px;
+    justify-content: center;
+
 }
 
 .modal-footer {
-    justify-content: space-between;
-    border-top: none; /* Usunięcie górnej granicy stopki */
+    display: flex;
+    justify-content: space-around;
 }
 
-/* Style dla przycisków w modalnym oknie */
-.modal-footer button {
+.modal button {
     padding: 10px 20px;
-}
-
-/* Style dla linku "Go Back" */
-.my-cart-list a {
-    text-decoration: none;
-    color: #007bff;
-    font-weight: bold;
-}
-
-.my-cart-list a:hover {
-    text-decoration: underline;
-}
-
-/* Style dla ikony kosza */
-.my-cart-item .fas.fa-trash {
-    color: #ff3333;
     cursor: pointer;
-}
-/* Style dla zdjęć produktów */
-.my-cart-item img {
-    max-width: 100px; /* Możesz dostosować szerokość zdjęć według własnych preferencji */
-    height: auto;
-}
-
-/* Styl dla kontenera listy produktów */
-.my-cart-list {
-    flex: 2; /* Zwiększ flex dla listy produktów, aby zajęła więcej miejsca na lewej stronie */
-    padding: 10px;
-}
-
-/* Styl dla przycisku "Proceed To Checkout" */
-.my-cart-summary .btn-block {
-    background-color: #007bff;
-    color: #fff;
-    font-size: 18px;
-    padding: 10px;
     border: none;
-    cursor: pointer;
-    margin-left: auto; /* Przesunięcie przycisku na prawą stronę */
-    display: block; /* Wymuszenie pełnej szerokości */
+    border-radius: 5px;
 }
+
+.modal button.btn-primary {
+    background-color: rgba(80, 80, 80);
+    color: white;
+}
+
+.modal button.btn-secondary {
+    background-color: #ff00009c;
+    color: white;
+}
+
+.modal button.btn-primary:hover {
+    background-color: rgba(80, 80, 80, 0.85);
+    color: white;
+}
+
+.modal button.btn-secondary:hover {
+    background-color: #ff0000d5;
+    color: white;
+}
+/* Styl dla przycisków przy produkcie */
+.my-cart-item-remove button {
+    background-color: #ff4d4d; /* Czerwony kolor dla przycisku 'Usuń' */
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.2s;
+}
+
+.my-cart-item-remove button:hover {
+    background-color: #ff3333; /* Ciemniejszy czerwony przy najechaniu */
+}
+
+/* Styl dla wyboru dostawy i odbioru osobistego */
+.delivery-options {
+    display: flex;
+    flex-direction: column;
+}
+
+.delivery-options label {
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    margin-right: 10px;
+}
+
+.delivery-options input[type="radio"] {
+    margin-right: 10px;
+}
+
+.delivery-options label:hover {
+    background-color: #e6e6e6; /* Lekkie podświetlenie przy najechaniu */
+}
+
+/* Wybrana opcja dostawy */
+.delivery-options input[type="radio"]:checked + label {
+    background-color: #d9d9d9; /* Podkreślenie wybranej opcji */
+    border: 2px solid #b3b3b3;
+}
+
+/* Styl przycisku 'Przejdź do płatności' */
+button.btn-block {
+    background-color: #4CAF50; /* Zielony kolor */
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    width: 100%;
+    border-radius: 5px;
+    font-size: 18px;
+}
+
+button.btn-block:hover {
+    background-color: #45a049; /* Ciemniejszy zielony przy najechaniu */
+}
+

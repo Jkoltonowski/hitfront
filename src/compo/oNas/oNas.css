@@ -1,7 +1,7 @@
 
 .opiss{
-    margin-right: 15%;
-    margin-left: 15%;
+    margin-right: 120px;
+    margin-left: 120px;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -20,8 +20,10 @@
 
 }
 .opisdwa{
-    margin-right: 15%;
-    margin-left: 15%;
+    margin-top: 12px;
+    margin-bottom: 50px;
+    margin-right: 120px;
+    margin-left: 120px;
 
     display: grid;
     grid-template-columns: repeat(3, 1fr);

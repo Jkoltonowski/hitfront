@@ -1,0 +1,178 @@
+.product-screen {
+  margin-top: 180px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #323232;
+  padding: 20px;
+  border-radius: 10px;
+  color: #E0E0E0;
+  font-size: 18px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+  overflow: hidden;
+  max-width: 900px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.product-image {
+  margin-left: 1%;
+  padding: 10px;
+  max-width: 50%;
+  border-radius: 8px;
+  height: auto;
+}
+
+.product-details {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+}
+
+.product-description {
+  flex: 1;
+  margin-right: 1%;
+  margin-left: 30%;
+
+}
+
+.product-action {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+.product-name {
+  font-size: 28px;
+  color: #ffffff;
+  margin-bottom: 10px;
+}
+
+.product-price {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.product-status {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.product-quantity-select {
+  width: auto;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  margin-bottom: 10px;
+}
+
+.product-add-to-cart-button {
+  background-color: #5a5a5a;
+  color: white;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  margin-bottom: 10px;
+}
+
+.product-add-to-cart-button:hover {
+  background-color: #6a6a6a;
+}
+
+.go-back-link {
+  color: #CCCCCC;
+  padding: 10px 15px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  text-align: center;
+  display: inline-block;
+  text-decoration: none;
+  margin-bottom: 10px;
+}
+
+.go-back-link:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 768px) {
+  .product-screen {
+    flex-direction: column;
+  }
+
+  .product-image {
+    max-width: 100%;
+  }
+
+  .product-details {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .product-description {
+    order: -1;
+    margin-right: 0;
+    margin-bottom: 20px;
+  }
+}
+
+/* Dodatkowe style, jeśli są potrzebne */
+
+
+.SameCategory {
+    text-align: center;
+    margin-top: 40px; /* Zwiększony margines górny */
+    margin-bottom: 20px; /* Margines dolny dla oddzielenia od innych elementów */
+}
+  
+.SameCategory > h2 { /* Zakładając, że tekst jest w elemencie h2 */
+    font-size: 28px; /* Większy rozmiar czcionki */
+    color: #4a4a4a; /* Ciemniejszy kolor tekstu */
+    font-weight: bold; /* Pogrubienie tekstu */
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2); /* Subtelny cień tekstu */
+}
+  
+.horizontal-scroll {
+    background-color: rgb(50, 50, 50);
+    margin-top: 40px;
+    margin-left: 200px;
+    margin-right: 200px;
+    display: flex;
+    overflow-x: auto;
+    gap: 80px; /* Odstępy między produktami */
+    padding: 10px; /* Opcjonalne wypełnienie dla lepszego wyglądu */
+    border-radius: 10px;
+    position: relative;
+    
+}
+
+.horizontal-scroll::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 10px; /* Wysokość dolnego paska */
+  background: linear-gradient(to left, rgb(255, 0, 0), transparent); /* Gradient od intensywnego czerwonego po prawej do przezroczystego po lewej */
+}
+
+.horizontal-scroll::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  width: 5px; /* Szerokość prawego paska */
+  background: linear-gradient(to top, rgb(255, 0, 0), transparent); /* Gradient od intensywnego czerwonego na górze do przezroczystego na dole */
+
+}
+  .horizontal-item {
+    flex: 0 0 auto; /* Elementy nie zmieniają swojego rozmiaru */
+    width: 200px; /* Ustaw szerokość każdego produktu */
+    /* Możesz dodać więcej stylów dla wyglądu produktów */
+  }
+  

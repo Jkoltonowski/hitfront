@@ -26,12 +26,16 @@ import store from './store'; // Import your Redux store
 import GuestCheckout from './Strony/GuestCheckout'
 import Checkout from './Strony/Checkout';
 import CompleteOrderForm from './Strony/OrderForm';
-
+import { loadStripe } from '@stripe/stripe-js';
+import { Elements } from '@stripe/react-stripe-js';
+import UserProfile from './Strony/UserProfile';
+import UserOrders from './Strony/UserOrders';
+import UserDashboard from './Strony/UserDashboard';
 axios.defaults.xsrfCookieName = 'csrftoken';
 axios.defaults.xsrfHeaderName = 'X-CSRFToken';
 axios.defaults.withCredentials = true;
 
-
+const stripePromise = loadStripe(process.env.REACT_APP_STRIPE_PUBLIC_KEY);
   
 function App() {
 	return (
@@ -39,6 +43,8 @@ function App() {
 		<UserProvider>
 		  <BrowserRouter>
 			<AuthProvider>
+				<Elements stripe={stripePromise}>
+
 					<Routes>
 						<Route
 							path='/'
@@ -90,9 +96,13 @@ function App() {
 						<Route path="/guest-checkout" element={ < GuestCheckout />} />
 						<Route path="/checkout" element={ < Checkout />} />
 						<Route path="/cart" element={<CartScreen />} />
-       					 <Route path="/complete-order" element={<CompleteOrderForm />} />	
-               			<Route path="/activate/:token" component={Activate} />								
-					</Routes>
+       					<Route path="/complete-order/:userId" element={<CompleteOrderForm />} />	
+               			<Route path="/activate/:token" component={Activate} />
+						<Route path="/profile/:userId" element={<UserDashboard/>} />
+						<Route path="/historia-zamowien/:userId" element={<UserOrders/>}/>
+						</Routes>
+					</Elements>					
+
 					</AuthProvider>
         </BrowserRouter>
       </UserProvider>

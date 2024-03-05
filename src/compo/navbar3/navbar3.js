@@ -4,7 +4,6 @@ import { Link } from 'react-router-dom';
 import React from 'react';
 import logo from '../img/logo.png';
 import AuthContext from '../../context/AuthContext';
-import './navbar2.css';
 
 function Navbar2() {
   const { user, logoutUser } = useContext(AuthContext);
@@ -29,13 +28,12 @@ function Navbar2() {
               <Link to='/cart'><button className='b9'>Koszyk</button></Link>
               <Link to='/login'><button className='b9'>Logowanie</button></Link>
               <Link to='/rejestracja'><button className='b9'>Rejestracja</button></Link>
-
             </>
           ) : (
             <>
               <Link to='/'><button className='b9'>Strona Główna</button></Link>
               <Link to='/cart'><button className='b9'>Koszyk</button></Link>
-              <Link to={`/profile/${decoded.user_id}`}><button className='b9'>Profil</button></Link> {/* Dodany przycisk Profil */}
+              <Link to='/sklep/'><button className='b9'>Sklep</button></Link> {/* Dodany przycisk Profil */}
               <button onClick={logoutUser} className='b9'>Wyloguj</button>
             </>
           )}
